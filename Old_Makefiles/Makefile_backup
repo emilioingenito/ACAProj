@@ -1,0 +1,60 @@
+# Default Makefile: just call 'make -f Makefile.default'
+SHELL = /bin/sh
+
+#Compiler and Linker
+CC =    g++
+LINK =    g++
+
+# MiniMD Files
+
+SRC =	atom.cpp ForceFunction.cpp main.cpp neighbor.cpp   
+INC = atom.h comm.h force.h force_lj.h ljs.h neighbor.h openmp.h threadData.h timer.h types.h
+
+	
+# Definitions
+
+ROOT =	main
+EXE =	$(ROOT)
+OBJ =	$(SRC:.cpp=.o) $(KOKKOS_SRC:.cpp=.o) 
+
+CCFLAGS = -O3 -DMPICH_IGNORE_CXX_SEEK -DDEVICE=1  -I./ -g -mavx -fopenmp -DUSE_SIMD -DNOCHUNK
+LINKFLAGS = -O3 -g -mavx -fopenmp 
+USRLIB =  
+SYSLIB =  
+
+#First copy all files, then call the same makefile again with the actual build target
+#Can't be done in single pass, because the actual compilation rule for .o files, need the 
+#copied cpp files to be in place. 
+
+copy: 
+	@if [ ! -d Compile ]; then mkdir Compile; fi
+	@cp -p $(SRC) $(INC) Compile
+	@cp Makefile Compile/Makefile
+	@cd Compile; $(MAKE) all
+  
+all: $(OBJ)
+	$(LINK) $(OBJ) $(LINKFLAGS) $(USRLIB) $(SYSLIB) -o ../$(EXE)
+  
+# Compilation rules
+
+.cpp.o:
+	$(CC) $(CCFLAGS) -E $*.cpp > $*.2.cpp
+	$(CC) $(CCFLAGS) -c $*.2.cpp -o $*.o
+
+# Individual dependencies
+
+$(OBJ): $(INC)
+
+# Clean
+clean:
+	rm -r Compile
+	
+# Test
+
+scope=0
+input=lj
+halfneigh=0
+path=""
+test:
+	bash run_tests ${scope} ${input} ${halfneigh} ${path} 
+  
