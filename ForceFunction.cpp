@@ -67,7 +67,6 @@ void ForceLJ::compute_original(Atom &atom, Neighbor &neighbor, int me)
   
   // loop over all neighbors of my atoms
   // store force on both atoms i and j
-
   for(int i = 0; i < nlocal; i++) {
     const int* const neighs = &neighbor.neighbors[i * neighbor.maxneighs];
     const int numneigh = neighbor.numneigh[i];
@@ -75,7 +74,6 @@ void ForceLJ::compute_original(Atom &atom, Neighbor &neighbor, int me)
     const MMD_float ytmp = x[i * PAD + 1];
     const MMD_float ztmp = x[i * PAD + 2];
     const int type_i = type[i];
-
     for(int k = 0; k < numneigh; k++) {
       const int j = neighs[k];
       const MMD_float delx = xtmp - x[j * PAD + 0];
@@ -83,9 +81,7 @@ void ForceLJ::compute_original(Atom &atom, Neighbor &neighbor, int me)
       const MMD_float delz = ztmp - x[j * PAD + 2];
       int type_j = type[j];
       const MMD_float rsq = delx * delx + dely * dely + delz * delz;
-
       const int type_ij = type_i*ntypes+type_j;
-
       if(rsq < cutforcesq[type_ij]) {
         const MMD_float sr2 = 1.0 / rsq;
         const MMD_float sr6 = sr2 * sr2 * sr2 * sigma6[type_ij];

@@ -1,2 +1,2 @@
-int f_nmax = #
 int f_maxneighs = #
+int f_nmax = #

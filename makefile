@@ -47,8 +47,6 @@ main.riscv.o: main.cpp
 neighbor.riscv.o: neighbor.cpp
 	${CCR} ${CCRFLAGS} -c neighbor.cpp
 
-
-
 link: $(OBJS)
 	$(LINKR) $(LINKRFLAGS) $(OBJS) -o $(EXECR).riscv 
 	@if [ ! -d CompileRISCV ]; then mkdir CompileRISCV; fi

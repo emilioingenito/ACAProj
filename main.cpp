@@ -3,12 +3,14 @@
 #include "atom.h"
 #include "neighbor.h"
 #include "force_lj.h"
-//libraries to manage files
-#include <iostream>
-#include <string>
-#include <fstream>
-using namespace std;
 #define DO_GENERATION 1
+#ifndef DO_GENERATION
+    //libraries to manage files
+    #include <iostream>
+    #include <string>
+    #include <fstream>
+    using namespace std;
+#endif
 
 int main(int argc, char** argv){
     printf("\n # Running the simulation: \n");
@@ -17,7 +19,6 @@ int main(int argc, char** argv){
     int ntypes = 4;
     Atom atom(ntypes);
     Neighbor neighbor(ntypes);
-
     #ifdef DO_GENERATION
         #include "PythonScript/atom_data.h"
         #include "PythonScript/neigh_data.h"
@@ -95,7 +96,6 @@ int main(int argc, char** argv){
         neigh.close();
 
     #endif
-   
     //Assign the variables for ATOMS
     atom.natoms = natoms;
     atom.nlocal = nlocal;
@@ -103,14 +103,17 @@ int main(int argc, char** argv){
     atom.nmax = nmax;
     #ifdef DO_GENERATION
         for (int i = 0; i < (nlocal + nghost)*PAD; i++) {
-            atom.x[i] = *reinterpret_cast<MMD_float*> (&x[i]);
+            x_f[i] = *reinterpret_cast<MMD_float*> (&x[i]);
         }
         for (int i = 0; i < (nlocal + nghost)*PAD; i++) {
-            atom.v[i] = *reinterpret_cast<MMD_float*> (&v[i]);
+            v_f[i] = *reinterpret_cast<MMD_float*> (&v[i]);
         }
         for (int i = 0; i < (nlocal + nghost)*PAD; i++) {
-            atom.f[i] = *reinterpret_cast<MMD_float*> (&f[i]);
+            f_f[i] = *reinterpret_cast<MMD_float*> (&f[i]);
         }
+        atom.x=x_f;
+        atom.v=v_f;
+        atom.f=f_f;
     #else
         atom.x = x;
         atom.v = v;

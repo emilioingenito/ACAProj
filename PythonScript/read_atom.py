@@ -2,6 +2,7 @@ with open('/home/emilio/ACAProj/PythonScript/source_atom.txt','r') as source, op
            
     dest.write("#include<stdio.h>\n")
     dest.write("#include<stdlib.h>\n")
+    dest.write("#include<stdint.h>\n")
     dest.write("#include \"../atom.h\"\n")
     dest.write("#include \"../neighbor.h\"\n")
     dest.write("#include \"../force_lj.h\"\n")
@@ -27,10 +28,16 @@ with open('/home/emilio/ACAProj/PythonScript/source_atom.txt','r') as source, op
     v = "uint64_t* v = new uint64_t[(nlocal + nghost)*PAD];\n"
     f = "uint64_t* f = new uint64_t[(nlocal + nghost)*PAD];\n"
     t = "int* type = new int[nlocal + nghost];\n"
+    aa = "MMD_float* x_f = new MMD_float[(nlocal + nghost)*PAD];\n"
+    ab = "MMD_float* v_f = new MMD_float[(nlocal + nghost)*PAD];\n"
+    ac = "MMD_float* f_f = new MMD_float[(nlocal + nghost)*PAD];\n"
     dest.write(x)
     dest.write(v)
     dest.write(f)
     dest.write(t)
+    dest.write(aa)
+    dest.write(ab)
+    dest.write(ac)
     
     #save each element of array
     
