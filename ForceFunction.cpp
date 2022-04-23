@@ -1,15 +1,12 @@
-//original version of force compute in miniMD
-//  -MPI only
-//  -not vectorizable
 #include "stdio.h"
 #include "math.h"
 #include "force_lj.h"
-#include "openmp.h"
-//libraries to manage files
-#include <iostream>
-#include <string>
-#include <fstream>
-using namespace std;
+// Libraries used to manage files
+// #include "openmp.h"
+// #include <iostream>
+// #include <string>
+// #include <fstream>
+// using namespace std;
 
 #ifndef VECTORLENGTH
 #define VECTORLENGTH 4
@@ -100,7 +97,7 @@ void ForceLJ::compute_original(Atom &atom, Neighbor &neighbor, int me)
     }
   }
 
-  //print forces on a file
+  /* Previously used to print forces on a file -- no more needed
   ofstream fw("./out/forces.txt", std::ofstream::out);
 
   //check if file was successfully opened for writing
@@ -115,6 +112,7 @@ void ForceLJ::compute_original(Atom &atom, Neighbor &neighbor, int me)
     fw.close();
   }
   else cout << "Problem with opening file: forces.txt";
+  */
 
   printf(" # End of computation\n");
   printf("\t>Eng_vdwl: %f\n", eng_vdwl);

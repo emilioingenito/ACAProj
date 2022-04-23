@@ -1,6 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
-#include<stdint.h>
+//#include<stdint.h>
 #include "../atom.h"
 #include "../neighbor.h"
 #include "../force_lj.h"
@@ -8,9 +8,9 @@ int natoms = 500;
 int nlocal = 500;
 int nghost = 1903;
 int nmax = 20000;
-uint64_t* x = new uint64_t[(nlocal + nghost)*PAD];
-uint64_t* v = new uint64_t[(nlocal + nghost)*PAD];
-uint64_t* f = new uint64_t[(nlocal + nghost)*PAD];
+u_int64_t* x = new u_int64_t[(nlocal + nghost)*PAD];
+u_int64_t* v = new u_int64_t[(nlocal + nghost)*PAD];
+u_int64_t* f = new u_int64_t[(nlocal + nghost)*PAD];
 int* type = new int[nlocal + nghost];
 MMD_float* x_f = new MMD_float[(nlocal + nghost)*PAD];
 MMD_float* v_f = new MMD_float[(nlocal + nghost)*PAD];

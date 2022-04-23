@@ -111,9 +111,9 @@ int main(int argc, char** argv){
         for (int i = 0; i < (nlocal + nghost)*PAD; i++) {
             f_f[i] = *reinterpret_cast<MMD_float*> (&f[i]);
         }
-        atom.x=x_f;
-        atom.v=v_f;
-        atom.f=f_f;
+        atom.x = x_f;
+        atom.v = v_f;
+        atom.f = f_f;
     #else
         atom.x = x;
         atom.v = v;

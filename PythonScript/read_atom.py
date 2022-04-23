@@ -24,9 +24,9 @@ with open('/home/emilio/ACAProj/PythonScript/source_atom.txt','r') as source, op
     dest.write(source.readline().split("#")[0]+nmax+";\n")
 
     #save arrays
-    x = "uint64_t* x = new uint64_t[(nlocal + nghost)*PAD];\n"
-    v = "uint64_t* v = new uint64_t[(nlocal + nghost)*PAD];\n"
-    f = "uint64_t* f = new uint64_t[(nlocal + nghost)*PAD];\n"
+    x = "u_int64_t* x = new uint64_t[(nlocal + nghost)*PAD];\n"
+    v = "u_int64_t* v = new uint64_t[(nlocal + nghost)*PAD];\n"
+    f = "u_int64_t* f = new uint64_t[(nlocal + nghost)*PAD];\n"
     t = "int* type = new int[nlocal + nghost];\n"
     aa = "MMD_float* x_f = new MMD_float[(nlocal + nghost)*PAD];\n"
     ab = "MMD_float* v_f = new MMD_float[(nlocal + nghost)*PAD];\n"
