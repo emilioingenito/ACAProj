@@ -2,7 +2,7 @@ with open('/home/emilio/ACAProj/PythonScript/source_atom.txt','r') as source, op
            
     dest.write("#include<stdio.h>\n")
     dest.write("#include<stdlib.h>\n")
-    dest.write("#include<stdint.h>\n")
+    #dest.write("#include<stdint.h>\n")
     dest.write("#include \"../atom.h\"\n")
     dest.write("#include \"../neighbor.h\"\n")
     dest.write("#include \"../force_lj.h\"\n")
