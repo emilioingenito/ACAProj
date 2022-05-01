@@ -13,7 +13,7 @@
 #endif
 
 int main(int argc, char** argv){
-    printf("\n # Running the simulation: \n");
+    //printf("\n # Running the simulation: \n");
     //variable inizialization 
     int me=0;
     int ntypes = 4;
@@ -104,6 +104,7 @@ int main(int argc, char** argv){
     #ifdef DO_GENERATION
         for (int i = 0; i < (nlocal + nghost)*PAD; i++) {
             x_f[i] = *reinterpret_cast<MMD_float*> (&x[i]);
+            //PER C x_f[i] = *((MMD_float*)(&x[i]));
         }
         for (int i = 0; i < (nlocal + nghost)*PAD; i++) {
             v_f[i] = *reinterpret_cast<MMD_float*> (&v[i]);
@@ -126,6 +127,7 @@ int main(int argc, char** argv){
     atom.comm_size = comm_size;
     atom.border_size = border_size;
     atom.reverse_size = reverse_size;
+    /*
     printf("\t> Natoms: %d\n", atom.natoms);
     printf("\t> Nlocal: %d\n", atom.nlocal);
     printf("\t> Nghost: %d\n", atom.nghost);
@@ -134,18 +136,21 @@ int main(int argc, char** argv){
     printf("\t> f[0]: %f\n", atom.f[0]);
     printf("\t> type[0]: %d\n", atom.type[0]);
     printf(" # Done ...\n");
+    */
 
     //Assign the variables for NEIGHBORS
     neighbor.set_nmax(f_nmax);
     neighbor.maxneighs = f_maxneighs;
     neighbor.numneigh = f_numneigh;
     neighbor.neighbors = f_neighbors;
+    /*
     printf("\t> Nmax: %d\n", f_nmax);
     printf("\t> Maxneighs: %d\n", neighbor.maxneighs);
     printf(" # Done ...\n");
+    */
 
     //declare and set parameters of the force
-    printf(" # Setting up force :\n");
+    //printf(" # Setting up force :\n");
     Force* force = (Force*) new ForceLJ(ntypes);
     MMD_float epsilon, sigma;
     epsilon=1.0;
@@ -157,9 +162,11 @@ int main(int argc, char** argv){
       force->sigma6[i] = sigma*sigma*sigma*sigma*sigma*sigma;
     }
     force->setup();
+    /*
     printf("\t> epsilon: %f\n", epsilon);
     printf("\t> sigma: %f\n", sigma);
     printf("\t> cutforce: %f\n", force->cutforce);
+    */
 
     //Run the simulation
     force->compute_original(atom, neighbor, me);

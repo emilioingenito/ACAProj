@@ -118,4 +118,5 @@ void ForceLJ::compute_original(Atom &atom, Neighbor &neighbor, int me)
   printf("\t>Eng_vdwl: %f\n", eng_vdwl);
   printf("\t>Virial: %f\n", virial);
   printf("\n---------------------------------------------------\n\n");
+
 }

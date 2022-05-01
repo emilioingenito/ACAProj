@@ -1,16 +1,10 @@
 with open('/home/emilio/ACAProj/PythonScript/source_neigh.txt','r') as source, open('/home/emilio/ACAProj/PythonScript/neigh_data.h','w') as dest, open('/home/emilio/MD/miniMD/ref/neighbors.txt') as data:
            
-    dest.write("#include<stdio.h>\n")
-    dest.write("#include<stdlib.h>\n")
-    dest.write("#include \"../atom.h\"\n")
-    dest.write("#include \"../neighbor.h\"\n")
-    dest.write("#include \"../force_lj.h\"\n")
- 
     #first line -- save maxneighs
     sr = source.readline().split("#")[0]
     dt = data.readline().rstrip('\n')
     maxneighs = int(dt)
-    dest.write(sr+dt+";\n")
+    dest.write(sr+str(maxneighs)+";\n")
     #second line -- save nmax
     sr = source.readline().split("#")[0]
     dt = data.readline().rstrip('\n')

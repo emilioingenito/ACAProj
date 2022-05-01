@@ -27,7 +27,7 @@ class Force
     int use_oldcompute;
     ThreadData* threads;
     MMD_int reneigh;
-    Timer* timer;
+    //Timer* timer;
 
     MMD_float *epsilon, *sigma6, *sigma; //Parameters for LJ only
 

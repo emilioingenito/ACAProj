@@ -4,9 +4,10 @@ CXXFLAGS = -g
 CCR = riscv64-unknown-elf-g++
 LINKR = riscv64-unknown-elf-g++
 
-CCRFLAGS = -static -fno-common -fno-builtin-printf -fno-use-cxa-atexit -specs=htif_nano.specs -O3 -I./
-LINKRFLAGS = -static -specs=htif_nano.specs -O3
-
+#CCRFLAGS = -static -fno-common -fno-builtin-printf -fno-use-cxa-atexit -specs=htif_nano.specs -O3 -I./
+#LINKRFLAGS = -static -specs=htif_nano.specs -O3
+CCRFLAGS = -fno-builtin-printf -specs=htif_nano.specs -fno-common 
+LINKRFLAGS = -static -specs=htif_nano.specs
 EXEC = main
 EXECR = mainrisc
 
@@ -14,13 +15,17 @@ OBJS =  atom.o ForceFunction.o main.o neighbor.o
 OBJR =  atom.riscv.o ForceFunction.riscv.o main.riscv.o neighbor.riscv.o
 INC = atom.h comm.h force.h force_lj.h ljs.h neighbor.h openmp.h threadData.h timer.h types.h
 
+#regola:
+#	python3 ...
+#	$(EXEC)
+
 $(EXEC): $(OBJS)
 	$(CXX) $(CXXFLAGS) -o $(EXEC) $(OBJS)
 	@if [ ! -d Compile ]; then mkdir Compile; fi
 	@mv $(OBJS) Compile;
 
 $(EXECR): $(OBJR)
-	$(CCR) $(CCRFLAGS) -o $(EXECR).riscv $(OBJS)
+# $(CCR) $(CCRFLAGS) -o $(EXECR).riscv $(OBJS)
 	$(MAKE) -f makefile link
 
 atom.o: atom.cpp
@@ -53,6 +58,10 @@ link: $(OBJS)
 	@mv $(OBJS) CompileRISCV;
 
 $(OBJS): $(INC)
+
+input:
+	python3 PythonScript/read_atom.py
+	python3 PythonScript/read_neigh.py
 
 clean:
 	rm -f -r Compile CompileRISCV main mainrisc.riscv *.o

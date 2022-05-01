@@ -3,7 +3,7 @@
 
 #include "atom.h"
 #include "threadData.h"
-#include "timer.h"
+//#include "timer.h"
 
 class Neighbor
 {
@@ -27,7 +27,7 @@ class Neighbor
     int setup(Atom &);               // setup bins based on box and cutoff
     void build(Atom &);              // create neighbor list
     void set_nmax(int f_nmax);
-    Timer* timer;
+    //Timer* timer;
 
     ThreadData* threads;
 
